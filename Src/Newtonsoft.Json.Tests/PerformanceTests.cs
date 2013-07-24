@@ -23,7 +23,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-#if !(SILVERLIGHT || NET20 || NET35 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NET35 || NETFX_CORE || PORTABLE || NORUNTIME)
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -700,7 +700,7 @@ If attributes are not mentioned, default values are used in each case.
       return json;
     }
 
-    #endregion
+#endregion
 
 #region Deserialize
 
@@ -899,7 +899,7 @@ If attributes are not mentioned, default values are used in each case.
       return (T) formatter.Deserialize(new MemoryStream(bytes));
     }
 
-    #endregion
+#endregion
 
 
 
@@ -1150,7 +1150,7 @@ If attributes are not mentioned, default values are used in each case.
     public int[] Scores { get; set; }
   }
 
-  #endregion
+#endregion
 }
 
 #endif

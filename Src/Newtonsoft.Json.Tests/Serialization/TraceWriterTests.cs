@@ -717,7 +717,7 @@ Newtonsoft.Json Error: 0 : Error!
       Assert.AreEqual(23, deserialized.FavoriteNumber);
     }
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
     [Test]
     public void TraceJsonWriterTest()
     {

@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE || NORUNTIME)
 using System.Numerics;
 #endif
 using System.Text;
@@ -1267,7 +1267,7 @@ namespace Newtonsoft.Json
           }
           else if (parseResult == ParseResult.Overflow)
           {
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE || NORUNTIME)
             string number = _stringReference.ToString();
             numberValue = BigInteger.Parse(number, CultureInfo.InvariantCulture);
             numberType = JsonToken.Integer;

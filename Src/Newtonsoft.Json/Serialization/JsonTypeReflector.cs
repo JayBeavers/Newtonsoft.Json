@@ -115,7 +115,7 @@ namespace Newtonsoft.Json.Serialization
     }
 #endif
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
     public static DataContractAttribute GetDataContractAttribute(Type type)
     {
       // DataContractAttribute does not have inheritance
@@ -171,7 +171,7 @@ namespace Newtonsoft.Json.Serialization
       if (objectAttribute != null)
         return objectAttribute.MemberSerialization;
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
       DataContractAttribute dataContractAttribute = GetDataContractAttribute(objectType);
       if (dataContractAttribute != null)
         return MemberSerialization.OptIn;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
+#if !(NET20 || NORUNTIME)
 namespace Newtonsoft.Json.Tests.Documentation.Samples.Serializer
 {
   public class DataContractAndDataMember
@@ -44,3 +45,4 @@ namespace Newtonsoft.Json.Tests.Documentation.Samples.Serializer
     }
   }
 }
+#endif

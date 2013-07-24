@@ -119,7 +119,7 @@ namespace Newtonsoft.Json.Tests.Linq
         jsonWriter.WriteValue("DVD read/writer");
         Assert.AreEqual(WriteState.Array, jsonWriter.WriteState);
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
         jsonWriter.WriteValue(new BigInteger(123));
         Assert.AreEqual(WriteState.Array, jsonWriter.WriteState);
 #endif
@@ -148,7 +148,7 @@ namespace Newtonsoft.Json.Tests.Linq
   /*fail*/]", writer.Token.ToString());
     }
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
     [Test]
     public void WriteBigInteger()
     {

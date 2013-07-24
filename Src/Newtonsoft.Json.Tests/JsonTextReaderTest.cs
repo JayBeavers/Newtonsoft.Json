@@ -844,7 +844,7 @@ Parameter name: reader",
       }
     }
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE || NORUNTIME)
     [Test]
     public void ReadInt64Overflow()
     {

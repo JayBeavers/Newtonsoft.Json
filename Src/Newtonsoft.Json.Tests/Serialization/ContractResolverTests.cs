@@ -98,7 +98,7 @@ namespace Newtonsoft.Json.Tests.Serialization
 
   public class AddressWithDataMember
   {
-#if !NET20
+#if !(NET20 || NORUNTIME)
     [DataMember(Name = "CustomerAddress1")]
 #endif
     public string AddressLine1 { get; set; }

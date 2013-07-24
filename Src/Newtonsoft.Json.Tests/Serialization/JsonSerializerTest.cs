@@ -654,7 +654,7 @@ namespace Newtonsoft.Json.Tests.Serialization
       Assert.AreEqual(@"{""selectList"":[{""Value"":""Hello""}]}", json);
     }
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
     [DataContract]
     public class BaseDataContractWithHidden
     {
@@ -2384,7 +2384,7 @@ keyword such as type of business.""
       Assert.AreEqual("titleId", n.FidOrder[n.FidOrder.Count - 1]);
     }
 
-#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || PORTABLE || PORTABLE40 || NORUNTIME)
     [MetadataType(typeof(OptInClassMetadata))]
     public class OptInClass
     {
@@ -2431,7 +2431,7 @@ keyword such as type of business.""
     }
 #endif
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
     [DataContract]
     public class DataContractPrivateMembers
     {
@@ -5326,7 +5326,7 @@ To fix this error either change the environment to be fully trusted, change the 
       Assert.AreEqual(meh.IDontWork, "meh");
     }
 
-#if !(SILVERLIGHT || NET20 || NETFX_CORE)
+#if !(SILVERLIGHT || NET20 || NETFX_CORE || NORUNTIME)
     [DataContract]
     public struct StructISerializable : ISerializable
     {
@@ -5750,7 +5750,7 @@ To fix this error either change the environment to be fully trusted, change the 
       JsonConvert.DeserializeObject<EnumerableArrayPropertyClass>(json);
     }
 
-#if !(NET20 || SILVERLIGHT)
+#if !(NET20 || SILVERLIGHT || NORUNTIME)
     [DataContract]
     public class BaseDataContract
     {
@@ -6113,7 +6113,7 @@ To fix this error either change the environment to be fully trusted, change the 
       Assert.IsNull(r.Departures.ElementAt(2));
     }
 
-#if !(NET20)
+#if !(NET20 || NORUNTIME)
     [DataContract]
     public class BaseType
     {
@@ -7337,7 +7337,7 @@ Parameter name: value",
 }", json);
     }
 
-#if !(NET20 || NET35)
+#if !(NET20 || NET35 || NORUNTIME)
     public class IgnoreDataMemberTestClass
     {
       [IgnoreDataMember]
@@ -7352,7 +7352,7 @@ Parameter name: value",
     }
 #endif
 
-#if !(NET20 || NET35)
+#if !(NET20 || NET35 || NORUNTIME)
     [Test]
     public void SerializeDataContractSerializationAttributes()
     {
@@ -7670,7 +7670,7 @@ Parameter name: value",
       Assert.AreEqual("[1.1,0.0,0.0]", json);
     }
 
-#if !(NET20 || NET35 || NET40 || SILVERLIGHT || PORTABLE40)
+#if !(NET20 || NET35 || NET40 || SILVERLIGHT || PORTABLE40 || NORUNTIME)
 #if !PORTABLE
     [Test]
     public void DeserializeReadOnlyListWithBigInteger()
@@ -8581,7 +8581,7 @@ Parameter name: value",
 }", json);
     }
 
-#if !(PORTABLE || NET35 || NET20 || SILVERLIGHT || PORTABLE40)
+#if !(PORTABLE || NET35 || NET20 || SILVERLIGHT || PORTABLE40 || NORUNTIME)
     [Test]
     public void ReadTooLargeInteger()
     {
@@ -8782,7 +8782,7 @@ Parameter name: value",
       Assert.AreEqual("string!", l[0]);
     }
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
     [Test]
     public void SerializeBigInteger()
     {
@@ -9684,7 +9684,7 @@ Parameter name: value",
     }
   }
 
-#if !(NET20 || NET35)
+#if !(NET20 || NET35 || NORUNTIME)
   [DataContract]
   public class DataContractSerializationAttributesClass
   {

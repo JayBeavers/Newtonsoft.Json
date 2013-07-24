@@ -178,10 +178,10 @@ namespace Newtonsoft.Json.Tests.Linq
         new JProperty("Uri", new Uri("http://json.codeplex.com/")),
         new JProperty("Guid", new Guid("EA27FE1D-0D80-44F2-BF34-4654156FA7AF")),
         new JProperty("TimeSpan", TimeSpan.FromDays(1))
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
         ,new JProperty("BigInteger", BigInteger.Parse("1"))
 #endif
-        );
+);
 
       dynamic d = o;
 
@@ -211,7 +211,7 @@ namespace Newtonsoft.Json.Tests.Linq
       Assert.IsTrue(d.Decimal == 1.1m);
       Assert.IsTrue(d.Decimal != 1.0f);
       Assert.IsTrue(d.Decimal != 1.0d);
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       Assert.IsTrue(d.Decimal > new BigInteger(0));
 #endif
 
@@ -227,11 +227,11 @@ namespace Newtonsoft.Json.Tests.Linq
       Assert.IsTrue(d.Float == 1.1m);
       Assert.IsTrue(d.Float != 1.0f);
       Assert.IsTrue(d.Float != 1.0d);
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       Assert.IsTrue(d.Float > new BigInteger(0));
 #endif
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       Assert.IsTrue(d.BigInteger == d.BigInteger);
       Assert.IsTrue(d.BigInteger > 0);
       Assert.IsTrue(d.BigInteger > 0.0m);
@@ -287,10 +287,10 @@ namespace Newtonsoft.Json.Tests.Linq
         new JProperty("Uri", new Uri("http://json.codeplex.com/")),
         new JProperty("Guid", new Guid("EA27FE1D-0D80-44F2-BF34-4654156FA7AF")),
         new JProperty("TimeSpan", TimeSpan.FromDays(1))
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
         ,new JProperty("BigInteger", new BigInteger(100))
 #endif
-        );
+);
 
       dynamic d = o;
       dynamic r;
@@ -366,7 +366,7 @@ namespace Newtonsoft.Json.Tests.Linq
       r += 2;
       Assert.AreEqual(null, r.Value);
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       r = d.BigInteger + null;
       Assert.AreEqual(null, r.Value);
       r += 2;
@@ -445,7 +445,7 @@ namespace Newtonsoft.Json.Tests.Linq
       r -= 2;
       Assert.AreEqual(null, r.Value);
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       r = d.BigInteger - null;
       Assert.AreEqual(null, r.Value);
       r -= 2;
@@ -519,7 +519,7 @@ namespace Newtonsoft.Json.Tests.Linq
       r *= 2;
       Assert.AreEqual(null, r.Value);
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       r = d.BigInteger * 1.1d;
       Assert.AreEqual(100m, (decimal)r);
       r *= 2;
@@ -593,7 +593,7 @@ namespace Newtonsoft.Json.Tests.Linq
       r /= 2;
       Assert.AreEqual(null, r.Value);
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       r = d.BigInteger / 1.1d;
       Assert.AreEqual(100m, (decimal)r);
       r /= 2;
@@ -621,10 +621,10 @@ namespace Newtonsoft.Json.Tests.Linq
         new JProperty("Uri", new Uri("http://json.codeplex.com/")),
         new JProperty("Guid", new Guid("EA27FE1D-0D80-44F2-BF34-4654156FA7AF")),
         new JProperty("TimeSpan", TimeSpan.FromDays(1))
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
         ,new JProperty("BigInteger", new BigInteger(100))
 #endif
-        );
+);
 
       dynamic d = o;
 
@@ -638,7 +638,7 @@ namespace Newtonsoft.Json.Tests.Linq
       Assert.AreEqual("http://json.codeplex.com/", d.Uri.ToString());
       Assert.AreEqual("ea27fe1d-0d80-44f2-bf34-4654156fa7af", d.Guid.ToString());
       Assert.AreEqual("1.00:00:00", d.TimeSpan.ToString());
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       Assert.AreEqual("100", d.BigInteger.ToString());
 #endif
     }
@@ -722,7 +722,7 @@ namespace Newtonsoft.Json.Tests.Linq
       AssertValueConverted<Guid?>(null);
       AssertValueConverted<Uri>(new Uri("http://json.codeplex.com/"));
       AssertValueConverted<Uri>(null);
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       AssertValueConverted<BigInteger>(new BigInteger(100));
       AssertValueConverted<BigInteger?>(null);
 #endif

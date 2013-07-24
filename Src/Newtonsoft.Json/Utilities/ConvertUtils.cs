@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.ComponentModel;
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE || NORUNTIME)
 using System.Numerics;
 #endif
 using Newtonsoft.Json.Serialization;
@@ -147,7 +147,7 @@ namespace Newtonsoft.Json.Utilities
           { typeof(Guid?), PrimitiveTypeCode.GuidNullable },
           { typeof(TimeSpan), PrimitiveTypeCode.TimeSpan },
           { typeof(TimeSpan?), PrimitiveTypeCode.TimeSpanNullable },
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT)
+#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT || NORUNTIME)
           { typeof(BigInteger), PrimitiveTypeCode.BigInteger },
           { typeof(BigInteger?), PrimitiveTypeCode.BigIntegerNullable },
 #endif
@@ -295,7 +295,7 @@ namespace Newtonsoft.Json.Utilities
       return o => call(null, o);
     }
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
     internal static BigInteger ToBigInteger(object value)
     {
       if (value is BigInteger)
@@ -400,7 +400,7 @@ namespace Newtonsoft.Json.Utilities
           return Type.GetType((string)initialValue, true);
       }
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE || NORUNTIME)
       if (targetType == typeof(BigInteger))
         return ToBigInteger(initialValue);
       if (initialValue is BigInteger)

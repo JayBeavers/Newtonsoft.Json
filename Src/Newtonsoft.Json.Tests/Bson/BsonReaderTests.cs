@@ -1447,7 +1447,7 @@ namespace Newtonsoft.Json.Tests.Bson
     }
 #endif
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
     public class BigIntegerTestClass
     {
       public BigInteger Blah { get; set; }

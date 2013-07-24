@@ -27,7 +27,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization;
-#if !(SILVERLIGHT || NET20 || NET35 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NET35 || NETFX_CORE || PORTABLE || NORUNTIME)
 using System.Runtime.Serialization.Json;
 #endif
 using System.Text;
@@ -230,13 +230,13 @@ namespace Newtonsoft.Json.Tests.Serialization
       Assert.IsFalse(MathUtils.ApproxEquals(0.0, 0.00001));
     }
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
     [Test]
     public void EmitDefaultValueTest()
     {
       EmitDefaultValueClass c = new EmitDefaultValueClass();
 
-#if !(SILVERLIGHT || NET20 || NET35 || NETFX_CORE || PORTABLE)
+#if !(SILVERLIGHT || NET20 || NET35 || NETFX_CORE || PORTABLE || NORUNTIME)
       DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(EmitDefaultValueClass));
 
       MemoryStream ms = new MemoryStream();
@@ -314,7 +314,7 @@ namespace Newtonsoft.Json.Tests.Serialization
       Assert.AreEqual(null, o.ClassValue);
     }
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
     [Test]
     public void EmitDefaultValueIgnoreAndPopulate()
     {
@@ -329,7 +329,7 @@ namespace Newtonsoft.Json.Tests.Serialization
 #endif
   }
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
   [DataContract]
   public class TestClass
   {
@@ -401,7 +401,7 @@ namespace Newtonsoft.Json.Tests.Serialization
     public int IntDefault { get; set; }
   }
 
-#if !NET20
+#if !(NET20 || NORUNTIME)
   [DataContract]
   public class EmitDefaultValueClass
   {

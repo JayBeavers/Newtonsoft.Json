@@ -351,7 +351,7 @@ namespace Newtonsoft.Json.Tests.Linq
 
       Assert.AreEqual(5, (int)(new JValue(StringComparison.OrdinalIgnoreCase)));
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
       string bigIntegerText = "1234567899999999999999999999999999999999999999999999999999999999999990";
 
       Assert.AreEqual(BigInteger.Parse(bigIntegerText), (new JValue(BigInteger.Parse(bigIntegerText))).Value);
@@ -431,7 +431,7 @@ namespace Newtonsoft.Json.Tests.Linq
 #endif
       ExceptionAssert.Throws<ArgumentException>("Can not convert Boolean to Uri.", () => { var i = (Uri)new JValue(true); });
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
       ExceptionAssert.Throws<ArgumentException>("Can not convert Uri to BigInteger.", () => { var i = (new JValue(new Uri("http://www.google.com"))).ToObject<BigInteger>(); });
       ExceptionAssert.Throws<ArgumentException>("Can not convert Null to BigInteger.", () => { var i = (new JValue((object)null)).ToObject<BigInteger>(); });
       ExceptionAssert.Throws<ArgumentException>("Can not convert Guid to BigInteger.", () => { var i = (new JValue(Guid.NewGuid())).ToObject<BigInteger>(); });
@@ -442,12 +442,12 @@ namespace Newtonsoft.Json.Tests.Linq
     [Test]
     public void ToObject()
     {
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || NORUNTIME)
       Assert.AreEqual((BigInteger)1, (new JValue(1).ToObject(typeof(BigInteger))));
       Assert.AreEqual((BigInteger)1, (new JValue(1).ToObject(typeof(BigInteger?))));
       Assert.AreEqual((BigInteger?)null, (new JValue((object)null).ToObject(typeof(BigInteger?))));
 #endif
-      Assert.AreEqual((ushort)1, (new JValue(1).ToObject(typeof(ushort))));
+        Assert.AreEqual((ushort)1, (new JValue(1).ToObject(typeof(ushort))));
       Assert.AreEqual((ushort)1, (new JValue(1).ToObject(typeof(ushort?))));
       Assert.AreEqual((uint)1L, (new JValue(1).ToObject(typeof(uint))));
       Assert.AreEqual((uint)1L, (new JValue(1).ToObject(typeof(uint?))));
@@ -496,7 +496,7 @@ namespace Newtonsoft.Json.Tests.Linq
       Assert.IsTrue(JToken.DeepEquals(new JValue((DateTimeOffset?)null), (JValue)(DateTimeOffset?)null));
 #endif
 
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
       // had to remove implicit casting to avoid user reference to System.Numerics.dll
       Assert.IsTrue(JToken.DeepEquals(new JValue(new BigInteger(1)), new JValue(new BigInteger(1))));
       Assert.IsTrue(JToken.DeepEquals(new JValue((BigInteger?)null), new JValue((BigInteger?)null)));

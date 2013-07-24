@@ -23,7 +23,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-#if !(NET35 || NET20 || PORTABLE)
+#if !(NET35 || NET20 || PORTABLE || NORUNTIME)
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,7 +53,7 @@ namespace Newtonsoft.Json.Tests.Documentation
   {
     public void SerializeObject()
     {
-      #region SerializeObject
+#region SerializeObject
       Product product = new Product();
 
       product.Name = "Apple";
@@ -79,7 +79,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void JsonSerializerToStream()
     {
-      #region JsonSerializerToStream
+#region JsonSerializerToStream
       Product product = new Product();
       product.ExpiryDate = new DateTime(2008, 12, 28);
 
@@ -96,7 +96,7 @@ namespace Newtonsoft.Json.Tests.Documentation
       #endregion
     }
 
-    #region SerializationAttributes
+#region SerializationAttributes
     [JsonObject(MemberSerialization.OptIn)]
     public class Person
     {
@@ -118,7 +118,7 @@ namespace Newtonsoft.Json.Tests.Documentation
     }
     #endregion
 
-    #region SerializationCallbacksObject
+#region SerializationCallbacksObject
     public class SerializationEventTestObject
     {
       // 2222
@@ -173,7 +173,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializationCallbacksExample()
     {
-      #region SerializationCallbacksExample
+#region SerializationCallbacksExample
       SerializationEventTestObject obj = new SerializationEventTestObject();
 
       Console.WriteLine(obj.Member1);
@@ -216,7 +216,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializationErrorHandling()
     {
-      #region SerializationErrorHandling
+#region SerializationErrorHandling
       List<string> errors = new List<string>();
 
       List<DateTime> c = JsonConvert.DeserializeObject<List<DateTime>>(@"[
@@ -251,7 +251,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializationErrorHandlingWithParent()
     {
-      #region SerializationErrorHandlingWithParent
+#region SerializationErrorHandlingWithParent
       List<string> errors = new List<string>();
 
       JsonSerializer serializer = new JsonSerializer();
@@ -264,7 +264,7 @@ namespace Newtonsoft.Json.Tests.Documentation
       #endregion
     }
 
-    #region SerializationErrorHandlingAttributeObject
+#region SerializationErrorHandlingAttributeObject
     public class PersonError
     {
       private List<string> _roles;
@@ -294,7 +294,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializationErrorHandlingAttributeExample()
     {
-      #region SerializationErrorHandlingAttributeExample
+#region SerializationErrorHandlingAttributeExample
       PersonError person = new PersonError
       {
         Name = "George Michael Bluth",
@@ -316,7 +316,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void PreservingObjectReferencesOff()
     {
-      #region PreservingObjectReferencesOff
+#region PreservingObjectReferencesOff
       Person p = new Person
       {
         BirthDate = new DateTime(1980, 12, 23, 0, 0, 0, DateTimeKind.Utc),
@@ -348,7 +348,7 @@ namespace Newtonsoft.Json.Tests.Documentation
     {
       List<Person> people = new List<Person>();
 
-      #region PreservingObjectReferencesOn
+#region PreservingObjectReferencesOn
       string json = JsonConvert.SerializeObject(people, Formatting.Indented,
         new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
 
@@ -383,7 +383,7 @@ namespace Newtonsoft.Json.Tests.Documentation
       #endregion
     }
 
-    #region PreservingObjectReferencesAttribute
+#region PreservingObjectReferencesAttribute
     [JsonObject(IsReference = true)]
     public class EmployeeReference
     {
@@ -392,7 +392,7 @@ namespace Newtonsoft.Json.Tests.Documentation
     }
     #endregion
 
-    #region CustomCreationConverterObject
+#region CustomCreationConverterObject
     public interface IPerson
     {
       string FirstName { get; set; }
@@ -423,7 +423,7 @@ namespace Newtonsoft.Json.Tests.Documentation
     {
       string json = null;
 
-      #region CustomCreationConverterExample
+#region CustomCreationConverterExample
       //[
       //  {
       //    "FirstName": "Maurice",
@@ -460,7 +460,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void ContractResolver()
     {
-      #region ContractResolver
+#region ContractResolver
       Product product = new Product
       {
         ExpiryDate = new DateTime(2010, 12, 20, 18, 1, 0, DateTimeKind.Utc),
@@ -491,7 +491,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializingCollectionsSerializing()
     {
-      #region SerializingCollectionsSerializing
+#region SerializingCollectionsSerializing
       Product p1 = new Product
       {
         Name = "Product 1",
@@ -529,7 +529,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializingCollectionsDeserializing()
     {
-      #region SerializingCollectionsDeserializing
+#region SerializingCollectionsDeserializing
       string json = @"[
         {
           'Name': 'Product 1',
@@ -559,7 +559,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializingCollectionsDeserializingDictionaries()
     {
-      #region SerializingCollectionsDeserializingDictionaries
+#region SerializingCollectionsDeserializingDictionaries
       string json = @"{""key1"":""value1"",""key2"":""value2""}";
 
       Dictionary<string, string> values = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
@@ -572,7 +572,7 @@ namespace Newtonsoft.Json.Tests.Documentation
       #endregion
     }
 
-    #region SerializingDatesInJson
+#region SerializingDatesInJson
     public class LogEntry
     {
       public string Details { get; set; }
@@ -603,7 +603,7 @@ namespace Newtonsoft.Json.Tests.Documentation
     }
     #endregion
 
-    #region ReducingSerializedJsonSizeOptOut
+#region ReducingSerializedJsonSizeOptOut
     public class Car
     {
       // included in JSON
@@ -617,7 +617,7 @@ namespace Newtonsoft.Json.Tests.Documentation
     }
     #endregion
 
-    #region ReducingSerializedJsonSizeOptIn
+#region ReducingSerializedJsonSizeOptIn
     [DataContract]
     public class Computer
     {
@@ -635,7 +635,7 @@ namespace Newtonsoft.Json.Tests.Documentation
     }
     #endregion
 
-    #region ReducingSerializedJsonSizeNullValueHandlingObject
+#region ReducingSerializedJsonSizeNullValueHandlingObject
     public class Movie
     {
       public string Name { get; set; }
@@ -649,7 +649,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void ReducingSerializedJsonSizeNullValueHandlingExample()
     {
-      #region ReducingSerializedJsonSizeNullValueHandlingExample
+#region ReducingSerializedJsonSizeNullValueHandlingExample
       Movie movie = new Movie();
       movie.Name = "Bad Boys III";
       movie.Description = "It's no Bad Boys";
@@ -678,7 +678,7 @@ namespace Newtonsoft.Json.Tests.Documentation
       #endregion
     }
 
-    #region ReducingSerializedJsonSizeDefaultValueHandlingObject
+#region ReducingSerializedJsonSizeDefaultValueHandlingObject
     public class Invoice
     {
       public string Company { get; set; }
@@ -699,7 +699,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void ReducingSerializedJsonSizeDefaultValueHandlingExample()
     {
-      #region ReducingSerializedJsonSizeDefaultValueHandlingExample
+#region ReducingSerializedJsonSizeDefaultValueHandlingExample
       Invoice invoice = new Invoice
       {
         Company = "Acme Ltd.",
@@ -734,7 +734,7 @@ namespace Newtonsoft.Json.Tests.Documentation
       #endregion
     }
 
-    #region ReducingSerializedJsonSizeContractResolverObject
+#region ReducingSerializedJsonSizeContractResolverObject
     public class DynamicContractResolver : DefaultContractResolver
     {
       private readonly char _startingWithChar;
@@ -767,7 +767,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void ReducingSerializedJsonSizeContractResolverExample()
     {
-      #region ReducingSerializedJsonSizeContractResolverExample
+#region ReducingSerializedJsonSizeContractResolverExample
       Book book = new Book
       {
         BookName = "The Gathering Storm",
@@ -796,7 +796,7 @@ namespace Newtonsoft.Json.Tests.Documentation
       #endregion
     }
 
-    #region SerializingPartialJsonFragmentsObject
+#region SerializingPartialJsonFragmentsObject
     public class SearchResult
     {
       public string Title { get; set; }
@@ -807,7 +807,7 @@ namespace Newtonsoft.Json.Tests.Documentation
 
     public void SerializingPartialJsonFragmentsExample()
     {
-      #region SerializingPartialJsonFragmentsExample
+#region SerializingPartialJsonFragmentsExample
       string googleSearchText = @"{
         'responseData': {
           'results': [

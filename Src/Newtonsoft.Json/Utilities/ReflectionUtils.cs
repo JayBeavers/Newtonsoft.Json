@@ -25,7 +25,7 @@
 
 using System;
 using System.Collections.Generic;
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT)
+#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT || NORUNTIME)
 using System.Numerics;
 #endif
 using System.Reflection;
@@ -929,7 +929,7 @@ namespace Newtonsoft.Json.Utilities
           return 0m;
         case PrimitiveTypeCode.DateTime:
           return new DateTime();
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT)
+#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT || NORUNTIME)
         case PrimitiveTypeCode.BigInteger:
           return new BigInteger();
 #endif

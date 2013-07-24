@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE40 || PORTABLE || NORUNTIME)
 using System.Numerics;
 #endif
 using Newtonsoft.Json.Utilities;
@@ -491,7 +491,7 @@ namespace Newtonsoft.Json
             WriteComment((reader.Value != null) ? reader.Value.ToString() : null);
             break;
           case JsonToken.Integer:
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
             if (reader.Value is BigInteger)
             {
               WriteValue((BigInteger)reader.Value);
@@ -1218,14 +1218,14 @@ namespace Newtonsoft.Json
       }
       else
       {
-#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40)
+#if !(NET20 || NET35 || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
         // this is here because adding a WriteValue(BigInteger) to JsonWriter will
         // mean the user has to add a reference to System.Numerics.dll
         if (value is BigInteger)
           throw CreateUnsupportedTypeException(this, value);
 #endif
 
-        WriteValue(this, ConvertUtils.GetTypeCode(value), value);
+          WriteValue(this, ConvertUtils.GetTypeCode(value), value);
       }
     }
     #endregion
@@ -1367,7 +1367,7 @@ namespace Newtonsoft.Json
         case PrimitiveTypeCode.TimeSpanNullable:
           writer.WriteValue((value == null) ? (TimeSpan?)null : (TimeSpan)value);
           break;
-#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT)
+#if !(PORTABLE || PORTABLE40 || NET35 || NET20 || WINDOWS_PHONE || SILVERLIGHT || NORUNTIME)
         case PrimitiveTypeCode.BigInteger:
           // this will call to WriteValue(object)
           writer.WriteValue((BigInteger)value);

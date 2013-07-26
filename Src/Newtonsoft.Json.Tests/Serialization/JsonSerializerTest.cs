@@ -436,7 +436,7 @@ namespace Newtonsoft.Json.Tests.Serialization
       Assert.AreEqual(TypeNameHandling.All, serializerProxy.TypeNameHandling);
     }
 
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || PORTABLE || PORTABLE40 || NORUNTIME)
     [Test]
     public void DeserializeISerializableIConvertible()
     {
@@ -3780,7 +3780,7 @@ Path '', line 1, position 2.",
       Assert.AreEqual("value", newModelStateDictionary["key"]);
     }
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40 || NORUNTIME)
     public class ISerializableTestObject : ISerializable
     {
       internal string _stringValue;
@@ -6170,7 +6170,7 @@ To fix this error either change the environment to be fully trusted, change the 
       }
     }
 
-#if !(SILVERLIGHT || WINDOWS_PHONE || NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(SILVERLIGHT || WINDOWS_PHONE || NETFX_CORE || PORTABLE || PORTABLE40 || NORUNTIME)
     [Test]
     public void SerializeException1()
     {
@@ -7414,7 +7414,7 @@ Parameter name: value",
           });
     }
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40 || NORUNTIME)
    [Test]
     public void DeserializeException()
     {
@@ -7732,7 +7732,7 @@ Parameter name: value",
         obj = JsonConvert.DeserializeObject<MyTuple<int>>(json);
       };
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || PORTABLE40 || NORUNTIME)
       doStuff();
       Assert.AreEqual(500, obj.Item1);
 #else
@@ -7742,7 +7742,7 @@ Parameter name: value",
 #endif
     }
 
-#if DEBUG
+#if DEBUG && !NORUNTIME
     [Test]
     public void SerializeCustomTupleWithSerializableAttributeInPartialTrust()
     {
@@ -7765,7 +7765,7 @@ Parameter name: value",
     }
 #endif
 
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || NET35 || NET20 || PORTABLE40)
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE || NET35 || NET20 || PORTABLE40 || NORUNTIME)
     [Test]
     public void SerializeTupleWithSerializableAttribute()
     {

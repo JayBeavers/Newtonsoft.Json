@@ -60,7 +60,8 @@ namespace Newtonsoft.Json.Linq
     private JContainer _parent;
     private JToken _previous;
     private JToken _next;
-    private static JTokenEqualityComparer _equalityComparer;
+
+    private static readonly JTokenEqualityComparer _equalityComparer = new JTokenEqualityComparer();
 
     private int? _lineNumber;
     private int? _linePosition;
@@ -84,9 +85,6 @@ namespace Newtonsoft.Json.Linq
     {
       get
       {
-        if (_equalityComparer == null)
-          _equalityComparer = new JTokenEqualityComparer();
-
         return _equalityComparer;
       }
     }

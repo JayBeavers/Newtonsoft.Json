@@ -116,7 +116,7 @@ namespace Newtonsoft.Json.Serialization
         new RegexConverter()
       };
 
-    private static Dictionary<ResolverContractKey, JsonContract> _sharedContractCache;
+    private static readonly Dictionary<ResolverContractKey, JsonContract> _sharedContractCache = new Dictionary<ResolverContractKey, JsonContract>();
     private static readonly object _typeContractCacheLock = new object();
 
     private Dictionary<ResolverContractKey, JsonContract> _instanceContractCache;
@@ -209,10 +209,17 @@ namespace Newtonsoft.Json.Serialization
 
     private void UpdateCache(Dictionary<ResolverContractKey, JsonContract> cache)
     {
-      if (_sharedCache)
-        _sharedContractCache = cache;
-      else
-        _instanceContractCache = cache;
+        if (_sharedCache)
+        {
+            _sharedContractCache.Clear();
+
+            foreach (var kvp in cache)
+            {
+                _sharedContractCache.Add(kvp.Key, kvp.Value);
+            }
+        }
+        else
+            _instanceContractCache = cache;
     }
 
     /// <summary>

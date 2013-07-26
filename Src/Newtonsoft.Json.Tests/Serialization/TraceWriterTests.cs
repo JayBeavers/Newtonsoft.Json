@@ -530,7 +530,7 @@ Newtonsoft.Json Error: 0 : Error!
       Assert.AreEqual("Finished deserializing System.Collections.Generic.List`1[System.Object]. Path '$values', line 17, position 4.", traceWriter.TraceRecords[9].Message);
     }
 
-#if !(NETFX_CORE || PORTABLE || SILVERLIGHT || PORTABLE40)
+#if !(NETFX_CORE || PORTABLE || SILVERLIGHT || PORTABLE40 || NORUNTIME)
     [Test]
     public void DeserializeISerializable()
     {

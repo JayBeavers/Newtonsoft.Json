@@ -49,34 +49,16 @@ namespace Newtonsoft.Json.Utilities
     private static readonly object _lock = new object();
     private static readonly WrapperDictionary _wrapperDictionary = new WrapperDictionary();
 
-    private static ModuleBuilder _moduleBuilder;
+    internal static readonly ModuleBuilder ModuleBuilder;
 
-    private static ModuleBuilder ModuleBuilder
-    {
-      get
+      static DynamicWrapper()
       {
-        Init();
-        return _moduleBuilder;
-      }
-    }
+          AssemblyName assemblyName = new AssemblyName("Newtonsoft.Json.Dynamic");
+          assemblyName.KeyPair = new StrongNameKeyPair(GetStrongKey());
 
-    private static void Init()
-    {
-      if (_moduleBuilder == null)
-      {
-        lock (_lock)
-        {
-          if (_moduleBuilder == null)
-          {
-            AssemblyName assemblyName = new AssemblyName("Newtonsoft.Json.Dynamic");
-            assemblyName.KeyPair = new StrongNameKeyPair(GetStrongKey());
-
-            AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-            _moduleBuilder = assembly.DefineDynamicModule("Newtonsoft.Json.DynamicModule", false);
-          }
-        }
+          AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+          ModuleBuilder = assembly.DefineDynamicModule("Newtonsoft.Json.DynamicModule", false);
       }
-    }
 
     private static byte[] GetStrongKey()
     {

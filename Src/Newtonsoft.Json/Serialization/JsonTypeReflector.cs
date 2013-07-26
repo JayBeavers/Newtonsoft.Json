@@ -50,8 +50,13 @@ namespace Newtonsoft.Json.Serialization
 
   internal static class JsonTypeReflector
   {
+#if !NORUNTIME
     private static bool? _dynamicCodeGeneration;
     private static bool? _fullyTrusted;
+#else
+    private static readonly bool? _dynamicCodeGeneration = false;
+    private static readonly bool? _fullyTrusted = false;
+#endif
 
     public const string IdPropertyName = "$id";
     public const string RefPropertyName = "$ref";
@@ -68,7 +73,8 @@ namespace Newtonsoft.Json.Serialization
 
     private const string MetadataTypeAttributeTypeName =
       "System.ComponentModel.DataAnnotations.MetadataTypeAttribute, System.ComponentModel.DataAnnotations, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35";
-    private static Type _cachedMetadataTypeAttributeType;
+
+    private static readonly Type _cachedMetadataTypeAttributeType = Type.GetType(MetadataTypeAttributeTypeName);
 #endif
 #if SILVERLIGHT
     private static readonly ThreadSafeStore<object, Type> TypeConverterTypeCache = new ThreadSafeStore<object, Type>(GetTypeConverterTypeFromAttribute);
@@ -258,18 +264,6 @@ namespace Newtonsoft.Json.Serialization
 
     private static Type GetMetadataTypeAttributeType()
     {
-      // always attempt to get the metadata type attribute type
-      // the assembly may have been loaded since last time
-      if (_cachedMetadataTypeAttributeType == null)
-      {
-        Type metadataTypeAttributeType = Type.GetType(MetadataTypeAttributeTypeName);
-
-        if (metadataTypeAttributeType != null)
-          _cachedMetadataTypeAttributeType = metadataTypeAttributeType;
-        else
-          return null;
-      }
-
       return _cachedMetadataTypeAttributeType;
     }
 #endif
@@ -356,7 +350,7 @@ namespace Newtonsoft.Json.Serialization
       return ReflectionUtils.GetAttribute<T>(provider, true);
     }
 
-#if DEBUG
+#if DEBUG && !NORUNTIME
     internal static void SetFullyTrusted(bool fullyTrusted)
     {
       _fullyTrusted = fullyTrusted;
@@ -375,9 +369,9 @@ namespace Newtonsoft.Json.Serialization
 #endif
       get
       {
+#if !(SILVERLIGHT || NETFX_CORE || PORTABLE40 || PORTABLE || NORUNTIME)
         if (_dynamicCodeGeneration == null)
         {
-#if !(SILVERLIGHT || NETFX_CORE || PORTABLE40 || PORTABLE)
           try
           {
             new ReflectionPermission(ReflectionPermissionFlag.MemberAccess).Demand();
@@ -391,12 +385,10 @@ namespace Newtonsoft.Json.Serialization
           {
             _dynamicCodeGeneration = false;
           }
-#else
-          _dynamicCodeGeneration = false;
-#endif
         }
+#endif
 
-        return _dynamicCodeGeneration.Value;
+        return _dynamicCodeGeneration ?? false;
       }
     }
 
@@ -404,11 +396,10 @@ namespace Newtonsoft.Json.Serialization
     {
       get
       {
+#if !(NETFX_CORE || SILVERLIGHT || PORTABLE || PORTABLE40 || NORUNTIME)
         if (_fullyTrusted == null)
         {
-#if (NETFX_CORE || SILVERLIGHT || PORTABLE || PORTABLE40)
-          _fullyTrusted = false;
-#elif !(NET20 || NET35 || PORTABLE40)
+#if !(NET20 || NET35 || PORTABLE40)
           AppDomain appDomain = AppDomain.CurrentDomain;
 
           _fullyTrusted = appDomain.IsHomogenous && appDomain.IsFullyTrusted;
@@ -424,8 +415,9 @@ namespace Newtonsoft.Json.Serialization
           }
 #endif
         }
+#endif
 
-        return _fullyTrusted.Value;
+        return _fullyTrusted ?? false;
       }
     }
 
